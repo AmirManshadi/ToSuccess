@@ -1,5 +1,5 @@
-import { Outlet } from "react-router-dom"
 import Greeting from "../components/Greeting"
+import TodoList from "../components/TodoList"
 
 const RootLayout = () => {
 	return (
@@ -9,7 +9,7 @@ const RootLayout = () => {
 			</header>
       <main>
         <Greeting />
-        <Outlet />
+        <TodoList />
       </main>
 		</>
 	)
