@@ -1,31 +1,29 @@
 @import url("https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
 
 // Variables
-$bg: linear-gradient(180deg, rgba(0, 0, 0, 1) 30%, rgba(14, 14, 112, 1) 100%);
+$bg: linear-gradient(180deg, rgba(0, 0, 0, 1) 30%, rgba(14, 14, 112, 1) 100%)
+	no-repeat center / cover fixed;
 $primary-color: #fff;
 $secondary-color: #00ffd4;
-$text-shadow-before-animation: 0 0 0px #00ffd4cc;
-$text-shadow: -2px 2px 0px #00ffd4cc;
+$secondary-color-transparent: #00ffd5aa;
 
 $font-family: "Lato", sans-serif;
 
-$border: 2px solid #ffffff;
-$border-radius: 3px;
+$border: 1px solid #fffa;
+$border-radius: 5px;
 
 $button-color: transparent;
-$button-color-hover: #00ffd444;
+$button-color-hover: #00ffd5aa;
 
 $bg-transition: background-color 200ms cubic-bezier(0.62, 0.39, 0.66, 0.42);
 $border-transition: border-color 200ms cubic-bezier(0.62, 0.39, 0.66, 0.42);
+
+$breakpoint: 1000px;
 
 // Extends
 %border {
 	border: $border;
 	border-radius: $border-radius;
-}
-
-%text-shadow {
-	text-shadow: $text-shadow;
 }
 
 %button {
@@ -45,6 +43,9 @@ $border-transition: border-color 200ms cubic-bezier(0.62, 0.39, 0.66, 0.42);
 	@extend %border;
 	background-color: transparent;
 	transition: $border-transition;
+	height: 50px;
+	padding: 1rem;
+	color: $primary-color;
 }
 
 %input-focus {
@@ -52,16 +53,17 @@ $border-transition: border-color 200ms cubic-bezier(0.62, 0.39, 0.66, 0.42);
 }
 
 %user-name {
-	font-size: 3rem;
-	animation: name-animation 1000ms linear 1 forwards;
+	color: $secondary-color;
+	animation: name-animation 1000ms ease-in 1 forwards;
 }
 
 // Mixins
-@mixin flex($dir: row, $jc: center, $ai: center) {
+@mixin flex($dir: row, $jc: center, $ai: center, $gap: auto) {
 	display: flex;
 	flex-direction: $dir;
 	justify-content: $jc;
 	align-items: $ai;
+	gap: $gap;
 }
 
 // Resets
@@ -80,9 +82,15 @@ html {
 	height: 100dvh;
 }
 
+#root {
+	width: inherit;
+	height: inherit;
+}
+
 body {
 	background: $bg;
-  color: $primary-color;
+	color: $primary-color;
+	// overflow: hidden;
 }
 
 a {
@@ -121,13 +129,114 @@ ul {
 .input:focus-visible {
 	@extend %input-focus;
 }
-@keyframes name-animation {
-	0% {
-		text-shadow: $text-shadow-before-animation;
+
+// Site Title
+.site-title {
+	text-align: center;
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+	padding: 1rem 0;
+}
+
+// Main
+main {
+	height: 100%;
+	width: clamp(80%, 90vw, 90%);
+	margin-inline: auto;
+	@include flex(row, space-between);
+	@media screen and (max-width: $breakpoint) {
+		@include flex(column, flex-start);
+		height: 90%;
 	}
-	100% {
-		text-shadow: $text-shadow;
-		transform: translate(2px, -2px);
-    color: $primary-color;
+}
+
+// Greeting
+.greeting {
+	text-transform: uppercase;
+	display: grid;
+	place-content: center;
+	flex-basis: 50%;
+	h3 {
+		font-size: clamp(1rem, 10vw, 2rem);
+	}
+	.user-name {
+		font-size: clamp(2rem, 10vw, 3rem);
+	}
+	@media screen and (max-width: $breakpoint) {
+		text-align: center;
+	}
+}
+
+// Button
+.btn {
+	flex-grow: 1;
+	svg {
+		fill: #fffe;
+		width: 100%;
+		height: 100%;
+	}
+}
+
+// To do list
+.todo-container {
+	@extend %border;
+	flex-basis: 50%;
+	height: 70%;
+	padding: 2rem;
+	@media screen and (max-width: $breakpoint) {
+		height: 100%;
+		align-self: stretch;
+	}
+
+	.todo-input {
+		@include flex(row, space-between, center, 1rem);
+		position: relative;
+		margin-bottom: 2rem;
+		.input {
+			flex-grow: 1;
+			font-size: 1rem;
+			&::placeholder {
+				color: #fffa;
+				font-size: 1rem;
+			}
+			&:-webkit-autofill,
+			&:-webkit-autofill:hover,
+			&:-webkit-autofill:focus,
+			&:-webkit-autofill:active {
+				-webkit-box-shadow: 0 0 0 30px $secondary-color-transparent inset !important;
+			}
+		}
+		&::after {
+			content: "";
+			display: block;
+			height: 1px;
+			width: 100%;
+			background-color: $primary-color;
+			position: absolute;
+			bottom: -1rem;
+			background: linear-gradient(to right, transparent, #fff, transparent);
+		}
+	}
+
+	.todo-list {
+		@include flex(column, flex-start, stretch, 1rem);
+		.todo-item {
+			@include flex(row, space-between, center, 1rem);
+			font-size: 1.5rem;
+		}
+	}
+
+	.btn {
+		flex-grow: 0;
+		width: 50px;
+		height: 50px;
+		display: grid;
+		place-items: center;
+		svg {
+			width: 30px;
+			height: 30px;
+		}
 	}
 }
