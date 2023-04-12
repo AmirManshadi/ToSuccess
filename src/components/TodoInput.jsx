@@ -1,9 +1,16 @@
 import Button from "./Button"
 
-const TodoInput = ({ todo, icon, children }) => {
+const TodoInput = ({ icon }) => {
 	return (
 		<>
-			<input type="text" name="todo" className="input" placeholder="add todo" autoComplete="false" />
+			<input
+				id="todo-input"
+				type="text"
+				name="todo"
+				className="input"
+				placeholder="add todo"
+				autoComplete="false"
+			/>
 			<Button icon={icon} />
 		</>
 	)
