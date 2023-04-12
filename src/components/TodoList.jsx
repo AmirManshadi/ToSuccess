@@ -8,11 +8,7 @@ const TodoList = () => {
 			<form className="todo-input">
 				<TodoInput icon={btnTypes.add} />
 			</form>
-			<div className="todo-list">
-				<TodoItem icon={btnTypes.done} />
-				<TodoItem icon={btnTypes.done} />
-				<TodoItem icon={btnTypes.done} />
-			</div>
+			<div className="todo-list"></div>
 		</div>
 	)
 }
