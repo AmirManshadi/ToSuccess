@@ -5,7 +5,6 @@ import {
 	createRoutesFromElements,
 } from "react-router-dom"
 import RootLayout from "./layouts/RootLayout"
-import TodoList from "./components/TodoList"
 
 const route = createBrowserRouter(
 	createRoutesFromElements(<Route path="/" element={<RootLayout />} />)
