@@ -8,11 +8,7 @@ import RootLayout from "./layouts/RootLayout"
 import TodoList from "./components/TodoList"
 
 const route = createBrowserRouter(
-	createRoutesFromElements(
-		<Route path="/" element={<RootLayout />}>
-			<Route index element={<TodoList />} />
-		</Route>
-	)
+	createRoutesFromElements(<Route path="/" element={<RootLayout />} />)
 )
 
 function App() {
